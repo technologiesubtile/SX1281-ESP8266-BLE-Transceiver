@@ -22,3 +22,25 @@ The aim is a transceiver that can be controlled over serial USB from a computer,
 
 
 The board front and back
+
+![image](https://user-images.githubusercontent.com/96028811/211768814-5b886371-02ec-4cfe-bb24-30fe8d40f451.png)   ![image](https://user-images.githubusercontent.com/96028811/211768846-309d72ba-1946-471b-86a9-14424868efc6.png)
+
+PCBoard design
+
+A pcboard is made based on a previous [link] LoRa board with minor adaptations to account for different pinout on the same footprint as the Ra-02 case. It is a single layer double sided component design that holds the D1 mini and SX128x on opposite sides. There are two more connections, DIO1 shall be connected in case interrupts are mapped to an output and the Busy connector is additional compared to the LoRa board. These two pins are connected to the nearby SDA and SCL pins of the Wemos respectively, meaning the I2C port becomes unusable and we sacrify the option of connecting sensors to it. The antenna is a normal solder pad and we route it with a cm of (approximative...) coplanar waveguide towards an external sma edge connector. 
+This setup was obtained with minor changes from a previous LoRa board. The SX128x module is located between the solder pad rows of the D1 mini DIL package. PCBoard design has the minor drawback that lanes pass underneath some unused solder pads of the SX128x module that must be isolated, e.g. by putting some mica or insulating tape underneath the module. At large scale production, solder stop mask could do the job. Compared to the previous board, an external voltage regulator revealed to be unnecessary because the radio draws less power and can be hooked to the LDO regulator even of the budget clones of the D1 mini.
+
+
+Circuit Diagram
+
+![image](https://user-images.githubusercontent.com/96028811/211768973-d0315c1c-28d2-4c60-9df6-42ef8adbf63f.png)
+
+The code
+
+is programmed in Arduino IDE with the ESP8266 core. The code is commented and self explaining. The name of the functions are close to the ones used in the datasheet [link]. Features are the ability to enter PDUs (protocol data unit) by entering a space separated list of hex values or by ascii, and to form packets by calculating a header which the hardware doesnt perform for BLE. The same way, byte arrays for configuration registers can be entered. Configuration data and the output packet can be stored on EEPROM to be loaded at the next power up. If EEPROM is absent, the hardcoded defaults will be used instead. The serial interface uses the settings 9k6 8N1. At startup a help screen is displayed. It can be re-displayed by typing "help". Upon packet reception, it is displayed along with the length, PDUtype from the header, the present frequency, RSSI, and the checksum.
+
+
+The help screen
+
+
+
