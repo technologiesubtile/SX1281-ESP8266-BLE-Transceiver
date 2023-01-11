@@ -37,10 +37,45 @@ Circuit Diagram
 
 The code
 
-is programmed in Arduino IDE with the ESP8266 core. The code is commented and self explaining. The name of the functions are close to the ones used in the datasheet [https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000HoCb/X1yTNr5aeVlmviwNhvHyX9a2wSTSla.JWmnEtvAAlRk]. Features are the ability to enter PDUs (protocol data unit) by entering a space separated list of hex values or by ascii, and to form packets by calculating a header which the hardware doesnt perform for BLE. The same way, byte arrays for configuration registers can be entered. Configuration data and the output packet can be stored on EEPROM to be loaded at the next power up. If EEPROM is absent, the hardcoded defaults will be used instead. The serial interface uses the settings 9k6 8N1. At startup a help screen is displayed. It can be re-displayed by typing "help". Upon packet reception, it is displayed along with the length, PDUtype from the header, the present frequency, RSSI, and the checksum.
+is programmed in Arduino IDE with the ESP8266 core. The code is commented and self explaining. The name of the functions are close to the ones used in the datasheet [https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000HoCb/X1yTNr5aeVlmviwNhvHyX9a2wSTSla.JWmnEtvAAlRk]. Features are the ability to enter PDUs (protocol data unit) by entering a space separated list of hex values or by ascii, and to form packets by calculating a header which the hardware does not perform for BLE since it is only hardware-compatible. The same way, byte arrays for configuration registers can be entered. Configuration data and the output packet can be stored on EEPROM to be loaded at the next power up. If EEPROM is absent, the hardcoded defaults will be used instead. The serial interface uses the settings 9k6 8N1. At startup a help screen is displayed. It can be re-displayed by typing "help".
 
 
 The help screen
 
+![blehelpscreen](https://user-images.githubusercontent.com/96028811/211929275-8f953076-6a45-44f4-82b1-80d7f84f1971.jpg)
 
 
+A bit of Syntax for the basic usage
+
+Let us assume that we want to generate the BLE advertisement package as described by the sample 2 of the document
+https://docs.silabs.com/bluetooth/latest/general/adv-and-scanning/bluetooth-adv-data-basics#example
+It means we have a list of hex values from which we want to generate an advertisement packet. We first define the payload by typing
+
+blepayload 0x02 0x01 0x06 0x11 0x07 0x07 0xb9 0xf9 0xd7 0x50 0xa4 0x20 0x89 0x77 0x40 0xcb 0xfd 0x2c 0xc1 0x80 0x48 0x09 0x08 0x42 0x47 0x4d 0x31 0x31 0x31 0x20 0x53
+
+Next, to generate an advertisement package from that payload, we type
+
+makebleadv
+
+this adds a header depending on the different settings (outpdutype....outmd) but let's leave the defaults for now.
+
+to transmit it over the air, type
+
+sendoutpdutotal
+
+Later on, if we want to transmit the packet periodically, we define an interval <> 0 by setting it e.g. to 5 seconds:
+
+intvl 5000
+
+and telling our board to do a transmission every time the interval is due, otherwise it would only receive and display the result every interval.
+
+txflag 1
+
+the loop does reception by default and interrogates the receive buffer also every interval.
+
+Packet received:
+
+Upon packet reception, it is displayed along with the length, PDUtype from the header, the present frequency, RSSI, and the checksum :
+
+
+![blepacketreceived](https://user-images.githubusercontent.com/96028811/211929617-428b98b5-8512-4edb-8f15-b8b4a3e3fb11.jpg)
