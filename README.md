@@ -79,3 +79,14 @@ Upon packet reception, it is displayed along with the length, PDUtype from the h
 
 
 ![blepacketreceived](https://user-images.githubusercontent.com/96028811/211929617-428b98b5-8512-4edb-8f15-b8b4a3e3fb11.jpg)
+
+Measurement of the output power
+
+For this test, the power was set to 5 dBm and the continuous transmission of a carrier was enabled by the command setcw. A connected power meter yields 3.4 dBm, the difference 1.6 dB is attributed approximately to the losses of the GSG output lane between radio and SMA connector, the connectors themselves and cable losses.
+
+![image](https://user-images.githubusercontent.com/96028811/211935397-b73cf4b1-15c5-4035-b20f-2ead0b21133d.png)
+
+Range test over 600 meters
+
+![image](https://user-images.githubusercontent.com/96028811/211938253-6108d208-1a0e-4473-8ab0-88defedcc084.png)   ![image](https://user-images.githubusercontent.com/96028811/211938286-8af4d4f2-980a-4d48-a565-096076d9f98b.png)
+
