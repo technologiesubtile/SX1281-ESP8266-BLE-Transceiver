@@ -90,3 +90,40 @@ Range test over 600 meters
 
 ![image](https://user-images.githubusercontent.com/96028811/211938253-6108d208-1a0e-4473-8ab0-88defedcc084.png)   ![image](https://user-images.githubusercontent.com/96028811/211938286-8af4d4f2-980a-4d48-a565-096076d9f98b.png)
 
+A first field test was performed with the equipment of above photo, 2 dBi nominal rubber antenna on mobile unit and window mount patch antenna, version with 22 mm washers. The protocol was BLE 1 Mbps, f= 2410 Khz, p= 5 dBm.
+
+The displayed RSSI of the last received packet at a distance of 600 m was -96 dBm. 
+
+Comparison with the link budget:
+
+P_r = P_t + G_t + G_r - PL - L_pol - L_conn =
+
+5 dBm + 7.4 dB  -1.2 dB - 95.6 dB - 3 dB – 2 dB =  -89.4 dBm
+
+Received power P_r
+
+P_t is the transmitter power = 5 dBm nominal, the powermeter displays 3.4 dBm so 1.6 is taken in account in the connection loss L_conn. Another 0.4 dB are added for the connectors on the receiver side, yielding 2 dB declared as connection loss L_conn.
+
+G_t is the gain of the transmitting antenna 10.4 dB according to our antenna study and we subtract 3 dB because the antenna is behind a double glass window, and we obtain 7.4 dB
+
+G_r is the gain of the receive antenna which is -1.2 dB according to our antenna study.
+
+For the antenna study, see:
+https://github.com/technologiesubtile/2.4-GHz-ISM-antennas
+
+Path loss: PL = 20 log (4 pi d f / c) = -95.6 dB
+
+Polarization loss: L_pol: -3 dB between circular and linear, -20 dB between V and H
+
+L_conn see above P_t
+
+The 6.6 dB disagreement between RSSI and link budget can tentatively be attributed as follows:
+- -96 dBm is better than on the datasheet p. 25 that states a sensitivity of -94 dBm for high sensitivity mode at FSK at 1 Mbps. The RSSI reading is not accurate.
+- the polarization loss of 3 dB is between ideally circular and linear and can be more
+- the propagation is through clear line of sight. However, it is close to the ground and there are obstacles along the way, both leading to multipath fading. In air and space communication, this effect will not occur.
+
+
+
+Extrapolation and perspective 
+
+The 600 meters range test was performed with artificially throttled performance. We can increase output power to 13 dBm, replace the antennas by 14 dBi quad patch on both sides, eliminating also the polarization loss, and we can communicate from ground to air/space to eliminate the multipath fading. Making use of all effects will increase the range to several kilometers.
