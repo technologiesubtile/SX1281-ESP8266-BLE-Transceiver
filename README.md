@@ -154,7 +154,7 @@ setrftxparams
 
 Warning: if the frequency is changed only by “freq 2402.0“ and the committing by “setrffreq“ or “setupble“ is omitted, then it is not changed in the receiver. However, for incoming packets, the resulting message would nevertheless wrongly indicate that the packet was received at 2402.0 MHz, although the transceiver would still be receiveing at the previous frequency.
 
-Writing raw lists of Hex Bytes directly to the transceiver via the SPI port: in the basic usage, the command blepayload writes it into the variable payload, the command makebleadv appends an advertisement header in front and stores everything in the variable outpdutotal, and finally the command sendoutpdutotal appends another 2 Hex bytes in front before sending it to the transceiver, to specify that it is a write command and what is the memory offset. In some cases, the expert user (fluent in machine code) might want to send raw Hex or machine code to the transceiver. This is achieved by 
+Writing raw lists of Hex Bytes directly to the transceiver via the SPI port: in the basic usage, the command blepayload writes payload into a variable, the command makebleadv appends an advertisement header in front and stores everything in the variable outpdutotal, and finally the command sendoutpdutotal appends another 2 Hex bytes in front before sending it to the transceiver, to specify that it is a write command and what is the memory offset. In some cases, the expert user (fluent in machine code) might want to send raw Hex or machine code to the transceiver instead. This is achieved by 
 
 spiupload 0x12 0x34 0x56
 spitransfer
