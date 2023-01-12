@@ -140,7 +140,7 @@ Details about the serial port
 
 Disclaimer
 
-No warranty of correctness or suitability for a particular purpose is given. Due to fluctuations of values of similar antennas from different manufacturers and even among different specimen from the same manufacturer, it is recommended to perform measurements for each individual implementation. It is the sole responisbility of the user to comply with local legislation regarding spectrum allocation and authorized RF power.
+No warranty of correctness or suitability for a particular purpose is given. Hard- and software may not be used for applications that require failsafe operation including but not limited to medical and life sustaining systems and passenger transport. It is the sole responsibility of the user to comply with local regulations regarding spectrum allocation and authorized RF power.
 
 
 
