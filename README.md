@@ -132,6 +132,38 @@ The 600 meters range test was performed with artificially throttled performance.
 
 More syntax for the Expert mode
 
+In general, all settings appearing in the help screen under the category “Radio related settings“ must be followed by the command “setupble“ in order to be applied to the SX1281 and not only to the variables of the ESP8266. For example, to change the packet type to GFSK, we would use the commands
+
+packettype 0x00
+setupble
+
+However for changing only the frequency, it is also possible to type
+
+freq 2402.0
+setrffreq
+
+The setrffreq, similarly as setupble, commits the modified frequency only to the transceiver, but it avoids committing all other radio settings. Similarly, for the power, it can be set e.g. to 10 dBm by
+
+power 10
+setrftxparams
+
+or by
+
+txparams 0x1c 0x80
+setrftxparams
+
+Warning: if the frequency is changed only by “freq 2402.0“ and the committing by “setrffreq“ or “setupble“ is omitted, then it is not changed in the receiver. However, for incoming packets, the resulting message would nevertheless wrongly indicate that the packet was received at 2402.0 MHz, although the transceiver would still be receiveing at the previous frequency.
+
+Writing raw lists of Hex values to the transceiver via the SPI port: in the basic usage, the command blepayload writes it into the variable payload, the command makebleadv appends an advertisement header in front and stores everything in the variable outpdutotal, and finally the command sendoutpdutotal appends another 2 Hex bytes in front before sending it to the transceiver, to specify that it is a write command and what is the memory offset. In some cases, the expert user (aware of what he is doing) might want to send raw Hex or machine code to the transceiver. This is achieved by 
+
+spiupload 0x12 0x34 0x56
+spitransfer
+
+During such operation, make sure the interval is set to 0
+intvl 0
+
+because otherwise the ESP8266 is periodically communicating with the transceiver and this would overwrite the spiupload buffer.
+
 
 
 
