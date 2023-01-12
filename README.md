@@ -154,7 +154,7 @@ setrftxparams
 
 Warning: if the frequency is changed only by “freq 2402.0“ and the committing by “setrffreq“ or “setupble“ is omitted, then it is not changed in the receiver. However, for incoming packets, the resulting message would nevertheless wrongly indicate that the packet was received at 2402.0 MHz, although the transceiver would still be receiveing at the previous frequency.
 
-Writing raw lists of Hex values to the transceiver via the SPI port: in the basic usage, the command blepayload writes it into the variable payload, the command makebleadv appends an advertisement header in front and stores everything in the variable outpdutotal, and finally the command sendoutpdutotal appends another 2 Hex bytes in front before sending it to the transceiver, to specify that it is a write command and what is the memory offset. In some cases, the expert user (aware of what he is doing) might want to send raw Hex or machine code to the transceiver. This is achieved by 
+Writing raw lists of Hex Bytes directly to the transceiver via the SPI port: in the basic usage, the command blepayload writes it into the variable payload, the command makebleadv appends an advertisement header in front and stores everything in the variable outpdutotal, and finally the command sendoutpdutotal appends another 2 Hex bytes in front before sending it to the transceiver, to specify that it is a write command and what is the memory offset. In some cases, the expert user (fluent in machine code) might want to send raw Hex or machine code to the transceiver. This is achieved by 
 
 spiupload 0x12 0x34 0x56
 spitransfer
@@ -182,4 +182,4 @@ No warranty of correctness or suitability for a particular purpose is given. Har
 
 Acknowledgement
 
-The transceiver has been developped in collaboration with Prof. Guillaume Ferré and Marwane Rezzouki from ENSEIRB-MATMECA, Laboratoire IMS, UMR 5218 CNRS. Fruitful discussions are gratefully acknowledged.
+The transceiver has been developped in collaboration with Prof. Guillaume Ferré and Marwane Rezzouki from ENSEIRB-MATMECA, Laboratoire IMS, UMR 5218 CNRS, in the context of a larger project comparing the physical layer performance of different protocols. Fruitful discussions are gratefully acknowledged.
