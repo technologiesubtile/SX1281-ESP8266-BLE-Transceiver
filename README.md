@@ -130,11 +130,15 @@ The 600 meters range test was performed with artificially throttled performance.
 
 
 
-More Syntax for the expert mode
+More syntax for the Expert mode
+
+
 
 
 
 Details about the serial port
+
+The communication settings are quite standard, 9.6 kbps, 8N1. The USB UART bridge of the Wemos D1 mini board is typically a CH341 in the case of the chinese clones but they are also available with a FTDI232 upon request. The expected termination is a newline \n character. However, since some terminal software, in particular Android apps, sometimes have difficulties in issuing a \n, there is also a 2 second timeout. As long as the Serial Monitor of the Arduino IDE is used, this is meaningless because the command is first typed into a line and then sent at once when pressing “enter“, together with the terminator according to the checkmark at the lower board of the window. However, when using terminal software that sends the characters one by one as they are typed, they must be typed quickly enough to prevent automatic termination by the timeout. An alternative is to paste them. For example in PuTTy, paste is done by Shift-Ins, and a newline can optionally be sent by Ctrl-J.
 
 
 
