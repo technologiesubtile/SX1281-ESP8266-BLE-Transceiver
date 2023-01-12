@@ -3,7 +3,7 @@
 Development of a BLE 4.2 transceiver and a partial bluetooth stack based on the Semtech SX1281 transceiver module
 
 Heinrich Diesinger, 
-Univ Lille, Univ Polytech Hauts France, CNRS, Centrale Lille, Junia, Inst Elect Microelect & Nanotchnol (IEMN) UMR 8520, F-59652 Villeneuve d'Ascq, France
+Univ Lille, Univ Polytech Hauts France, CNRS, Centrale Lille, Junia, Inst Elect Microelect & Nanotechnol (IEMN) UMR 8520, F-59652 Villeneuve d'Ascq, France
 
 Abstract
 
@@ -12,7 +12,7 @@ Another interesting aspect of GFSK based BLE protocol is the number of device cl
 
 Requirements
 
-For research purposes (sensitivity performance, protocol immunity, Doppler or carrier frequency offset stability), we require a BLE transceiver that can communicate at the standard 1 Mbps and reduced baud rate of 125 kbps. BLE 4.2 radios are now widely available but often lacking the 125 kbps rate. The Semtech SX128x chip seems to offer it at low cost and ease of use e.g. compared to the Nordic Semiconductor modules that come with their own IDE or an Arduino core that lacks advanced functionality. Moreover, the SX128x module is a most versatile 2.4 GHZ transceiver  that features, in addition to basic GFSK and GFSK based BLE, also the modes FLRC, 2.4 GHz LoRa and in the 1280 version also a ranging engine. While GFSK, FLRC and LoRa stacks are implemented in hardware, BLE 4.2 compatibility is implemented only up to the communication layer.
+For research purposes (sensitivity performance, protocol immunity, Doppler or carrier frequency offset stability), we require a BLE transceiver that can communicate at the standard 1 Mbps and reduced baud rate of 125 kbps. BLE 4.2 radios are now widely available but often lacking the 125 kbps rate. The Semtech SX128x chip seems to offer it at low cost and ease of use e.g. compared to the Nordic Semiconductor modules that come with their own IDE or an Arduino core that lacks advanced functionality. Moreover, the SX128x module is a most versatile 2.4 GHZ transceiver  that features, in addition to basic GFSK and GFSK based BLE, also the modes FLRC, 2.4 GHz LoRa and in the 1280 version also a ranging engine. While GFSK, FLRC and LoRa stacks are implemented in hardware, BLE 4.2 compatibility is implemented only up to the physical layer.
 We preferred this module despite the absence of the stack since for the intended characterization, a partial stack implementation below handshake would readily enable the advertisement mode. A first approach of testing it with available libraries (Stuart Robinson, Sandeep Mistry, Radiohead McCaulny, RadioLib) was disappointing because either the communication could not be established at all in BLE (authors focusing on LoRa ?) and/or some parameters (sync word aka access address) were not accessible through the library.
 In the end, the decision was to abandon available libraries and to write our own library based on the commands given by the manufacturer datasheet [https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000HoCb/X1yTNr5aeVlmviwNhvHyX9a2wSTSla.JWmnEtvAAlRk], using only the standard SPI library to transfer machine code and register values over the port.
 
@@ -126,4 +126,24 @@ The 6.6 dB disagreement between RSSI and link budget can tentatively be attribut
 
 Extrapolation and perspective 
 
-The 600 meters range test was performed with artificially throttled performance. We can increase output power to 13 dBm, replace the antennas by 14 dBi quad patch on both sides, eliminating also the polarization loss, and we can communicate from ground to air/space to eliminate the multipath fading. Making use of all effects will increase the range to several kilometers.
+The 600 meters range test was performed with artificially throttled performance. We can increase output power to 13 dBm, replace the antennas by 14 dBi quad patch on both sides, eliminating also the polarization loss, and we can communicate from ground to air/space to eliminate the multipath fading. Making use of all effects will increase the range to several (approaching 10) kilometers.
+
+
+
+More Syntax for the expert mode
+
+
+
+Details about the serial port
+
+
+
+Disclaimer
+
+No warranty of correctness or suitability for a particular purpose is given. Due to fluctuations of values of similar antennas from different manufacturers and even among different specimen from the same manufacturer, it is recommended to perform measurements for each individual implementation. It is the sole responisbility of the user to comply with local legislation regarding spectrum allocation and authorized RF power.
+
+
+
+Acknowledgement
+
+The transceiver has been developped in collaboration with Prof. Guillaume Ferré and Marwane Rezzouki from ENSEIRB-MATMECA, Laboratoire IMS, UMR 5218 CNRS. Fruitful discussions are gratefully acknowledged.
