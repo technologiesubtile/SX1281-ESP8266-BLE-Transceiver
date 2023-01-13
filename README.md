@@ -126,7 +126,7 @@ The 6.6 dB disagreement between RSSI and link budget can tentatively be attribut
 
 Extrapolation and perspective 
 
-The 600 meters range test was performed with artificially throttled performance. We can increase output power to 13 dBm, replace the antennas by 14 dBi quad patch on both sides, eliminating also the polarization loss, and we can communicate from ground to air/space to eliminate the multipath fading. Making use of all effects will increase the range to several (approaching 10) kilometers.
+The 600 meters range test was performed with artificially throttled performance. We can increase output power to 13 dBm, replace the antennas by 14 dBi quad patch on both sides, eliminating also the polarization loss, and we can communicate from ground to air/space to eliminate the multipath fading. Making use of all effects will increase the range to several (approaching 10) kilometers. To increase the range further, the signal can be amplified with WiFi amplifiers or even more performant antennas can be used, for example a simple patch antenna with a parabolic mirror as for the QO-100 uplink. Such configurations would likely (almost certainly) exceed the maximum EIRP authorized for ISM use, but might be authorized in different context e.g. operating in satellite amateur band with the dish aimed at a satellite to avoid interference with terrestrial services.
 
 
 
