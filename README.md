@@ -18,7 +18,7 @@ In the end, the decision was to abandon available libraries and to write our own
 
 Hardware
 
-The aim is a transceiver that can be controlled over serial USB from a computer, tablet or smartphone and combines a radio module and a microcontroller, also enabling to run autonomously and store own code and some data. Whereas a choice of boards (Lillygo, TTgo etc.) are available that combine an ESP32 with a SX1278 LoRa radio, the SX128x can up to now (mai 2022) not be purchased on a similar board (susceptible of changing rapidly...). In principle it would also be possible to control a SX128x over serial port solely by a usb to serial bridge since its novelty is the ability to pass commands either via SPI or RS232, but this would require software on the host computer in order to be used ergonomously and preclude running code on the board. Our choice is to build our own experimental platform while a commercially available solution is still unavailable. Since the ESP32 is oversized for basic control of the SX128x, we opt for a ESP8266 D1 mini module. A requirement for us is a 50 Ohm output for connecting external antennas and measurement gear, rather than a PCB inverted F antenna often seen on Bluetooth and WiFi modules. A SX1281 module in a can package by niceRF has a solder pad antenna output (neither IFA nor IPEX connectors).
+The aim is a transceiver that can be controlled over serial USB from a computer, tablet or smartphone and combines a radio module and a microcontroller, also enabling to run autonomously and store own code and some data. Whereas a choice of boards (Lillygo, TTgo etc.) are available that combine an ESP32 with a SX1278 LoRa radio, the SX128x can up to now (mai 2022) not be purchased on a similar board (susceptible of changing rapidly...). In principle it would also be possible to control a SX128x over serial port solely by a usb to serial bridge since its novelty is the ability to pass commands either via SPI or RS232, but this would require software on the host computer in order to be used ergonomously and preclude running code on the board. Our choice is to build our own experimental platform while a commercially available solution is still unavailable. Since the ESP32 is oversized for basic control of the SX128x, we opt for a ESP8266 D1 mini module. A requirement for us is a 50 Ohm output for connecting external antennas and measurement gear, rather than a PCB inverted F antenna often seen on Bluetooth and WiFi modules. A SX1281 module in a can package by niceRF has a solder pad antenna output (neither IFA nor IPEX connectors). We run a coplanar waveguide from the solder pad to a SMA edge connector.
 
 
 The board front and back
@@ -135,21 +135,25 @@ More syntax for the Expert mode
 In general, all settings appearing in the help screen under the category “Radio related settings“ must be followed by the command “setupble“ in order to be applied to the SX1281 and not only to the variables of the ESP8266. For example, to change the packet type to GFSK, we would use the commands
 
 packettype 0x00
+
 setupble
 
 However for changing only the frequency, it is also possible to type
 
 freq 2402.0
+
 setrffreq
 
 The setrffreq command, similarly as setupble, commits the modified frequency only to the transceiver, but it avoids committing all other radio settings. Similarly, for the power, it can be set e.g. to 10 dBm by
 
 power 10
+
 setrftxparams
 
 or by
 
 txparams 0x1c 0x80
+
 setrftxparams
 
 Warning: if the frequency is changed only by “freq 2402.0“ and the committing by “setrffreq“ or “setupble“ is omitted, the change does not become effective in the transceiver. However, for incoming packets, the resulting message would nevertheless wrongly indicate that the packet was received at 2402.0 MHz, although the transceiver would still be receiveing at the previous frequency.
@@ -157,9 +161,11 @@ Warning: if the frequency is changed only by “freq 2402.0“ and the committin
 Writing raw lists of Hex Bytes directly to the transceiver via the SPI port: in the basic usage, the command blepayload writes payload into a variable, the command makebleadv appends an advertisement header in front and stores everything in another variable, and finally the command sendoutpdutotal appends another 2 Hex bytes in front to specify that it is a write command and the memory location before sending everything to the transceiver. In some cases, the expert user (fluent in machine code) might want to send raw Hex Bytes or machine code to the transceiver instead. This is achieved by 
 
 spiupload 0x12 0x34 0x56
+
 spitransfer
 
-During such operation, make sure that the interval for periodic Tx/Rx execution is set to 0
+Before such operation, make sure that the interval for periodic Tx/Rx execution is set to 0
+
 intvl 0
 
 because otherwise the ESP8266 is periodically communicating with the transceiver and this would overwrite the spiupload buffer.
@@ -182,4 +188,4 @@ No warranty of correctness or suitability for a particular purpose is given. Har
 
 Acknowledgement
 
-The transceiver has been developped in collaboration with Prof. Guillaume Ferré and Marwane Rezzouki from ENSEIRB-MATMECA, Laboratoire IMS, UMR 5218 CNRS, in the context of a larger project comparing the physical layer performance of different protocols. Fruitful discussions are gratefully acknowledged.
+The transceiver has been developped in collaboration with Prof. Guillaume Ferré and Marwane Rezzouki from ENSEIRB-MATMECA, Laboratoire IMS, UMR 5218 CNRS, F-33400 Talence in the context of a larger project comparing the physical layer performance of different protocols. Fruitful discussions are gratefully acknowledged.
